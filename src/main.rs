@@ -13,6 +13,9 @@ fn main() {
         let expected_sleep_time = Duration::from_micros(opt.sleep_time_as_micros);
         let start = Instant::now();
         std::thread::sleep(expected_sleep_time);
+        if Instant::now() < start {
+            panic!("Marty, you went back in time! Seems like your system time is non-monotonic");
+        }
         let actual_sleep_time = Instant::now() - start;
         println!(
             "Sleep overhead was {}us",
